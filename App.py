@@ -1,15 +1,22 @@
 import tkinter as tk
-from pytube import YouTube
+import yt_dlp
 from tkinter import filedialog
 
-
-def download(link):
+def download(url: str):
     path = filedialog.askdirectory()
+    ydl_opts = {
+        'outtmpl': f'{path}/%(title)s',
+        'noplaylist': True,
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
+    }
+
     if path:
-        yt = YouTube(link)
-        stream = yt.streams.filter(file_extension='mp4').order_by('resolution').desc().first()
-        stream.download(output_path=path)
-        print("Downloaded")
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                ydl.download(url)
+            print(f"Download successful! Saved to {path}.")
+        except Exception as e:
+            print(f"An error occurred while downloading the video: {e}")
 
 root = tk.Tk()
 root.config(bg="white")
