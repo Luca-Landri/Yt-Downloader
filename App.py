@@ -1,6 +1,14 @@
 import tkinter as tk
 import yt_dlp
 from tkinter import filedialog
+from tkinter import ttk
+
+root = tk.Tk()
+style = ttk.Style()
+root.config(bg="white")
+root.geometry("600x450")
+root.title("Landri Downloader")
+
 
 def download(url: str):
     path = filedialog.askdirectory()
@@ -20,10 +28,6 @@ def download(url: str):
 
 
 
-root = tk.Tk()
-root.config(bg="white")
-root.geometry("600x450")
-root.title("Landri Downloader")
 
 img = tk.PhotoImage(file="./Images/logo.png")
 root.tk.call('wm', 'iconphoto', root._w, img)
@@ -36,9 +40,9 @@ titleFrame.pack(side="top")
 
 image = tk.PhotoImage(file="./Images/YTLogo.png")
 image = image.subsample(3)
-label = tk.Label(frame, text="INSERT THE LINK", font=("Verdana", 35), fg="red", width=20, height=2)
-LinkInput = tk.Entry(frame, font=("Helvetica", 24), width=30)
-Dlvideo = tk.Button(frame, text="Download", font=("Verdana", 24), command=lambda: download(LinkInput.get()))
+label = tk.Label(frame, text="Insert the video link:", font=("Arial", 30), fg="black", width=40, height=2)
+LinkInput = tk.Entry(frame, font=("Arial", 24), width=30, insertbackground='black', bg= 'white', bd= 3, relief= "solid", fg='black')
+DlButton = tk.Button(frame, text="Download", command=lambda: download(LinkInput.get()), width=15, font=("Arial", 25))
 
 labelimg = tk.Label(titleFrame, image=image)
 labelDl = tk.Label(titleFrame, text="DL", font=("Verdana", 60), fg="black", width=2, height=2)
@@ -47,17 +51,17 @@ labelimg.pack(side="left")
 labelDl.pack(side="left")
 
 label.pack()
-Dlvideo.pack(side="bottom", pady=30)
+DlButton.pack(side="bottom", pady=30)
 LinkInput.pack(side="bottom")
 
 
 frame.configure(bg="white")
 label.configure(bg="white")
-Dlvideo.configure(bg="white")
 frame.configure(bg="white")
 labelimg.configure(bg="white")
 labelDl.configure(bg="white")
 titleFrame.configure(bg="white")
+DlButton.configure(bg="white")
 
 
 root.mainloop()
