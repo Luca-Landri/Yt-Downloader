@@ -26,6 +26,8 @@ def download(url: str):
             DlCompleted.pack()
         except Exception as e:
             print(f"An error occurred while downloading the video: {e}")
+        finally:
+            DlButton.config(state='normal')
 
 
 def download_thread():
