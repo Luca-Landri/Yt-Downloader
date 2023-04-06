@@ -18,10 +18,15 @@ def download(url: str):
         except Exception as e:
             print(f"An error occurred while downloading the video: {e}")
 
+
+
 root = tk.Tk()
 root.config(bg="white")
 root.geometry("600x450")
 root.title("Landri Downloader")
+
+img = tk.PhotoImage(file="./Images/logo.png")
+root.tk.call('wm', 'iconphoto', root._w, img)
 
 frame = tk.Frame(root)
 frame.place(relx=0.5, rely=0.5, anchor="center")
@@ -29,7 +34,7 @@ frame.place(relx=0.5, rely=0.5, anchor="center")
 titleFrame = tk.Frame(frame)
 titleFrame.pack(side="top")
 
-image = tk.PhotoImage(file="./YTLogo.png")
+image = tk.PhotoImage(file="./Images/YTLogo.png")
 image = image.subsample(3)
 label = tk.Label(frame, text="INSERT THE LINK", font=("Verdana", 35), fg="red", width=20, height=2)
 LinkInput = tk.Entry(frame, font=("Helvetica", 24), width=30)
