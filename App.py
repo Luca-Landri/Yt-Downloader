@@ -1,7 +1,6 @@
 import tkinter as tk
 import yt_dlp
 from tkinter import filedialog
-from tkinter import ttk
 import threading
 
 root = tk.Tk()
@@ -18,16 +17,26 @@ def download(url: str):
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
     }
 
-    if path:
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                ydl.download([url])
-            print(f"Download successful! Saved to {path}.")
-            DlCompleted.pack()
-        except Exception as e:
-            print(f"An error occurred while downloading the video: {e}")
-        finally:
+    if url: 
+        if path:
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    ydl.download([url])
+                print(f"Download successful! Saved to {path}.")
+                DlCompleted.pack()
+            except Exception as e:
+                print(f"An error occurred while downloading the video: {e}")
+            finally:
+                DlButton.config(state='normal')
+        else:
+            print("No path selected.")
             DlButton.config(state='normal')
+    else:
+        print("No URL inserted.")
+        DlButton.config(state='normal')
+        LinkInput.delete(0, tk.END)
+        # make the border red
+        LinkInput.config(bg='red')
 
 
 def download_thread():
@@ -47,7 +56,7 @@ titleFrame.pack(side="top")
 image = tk.PhotoImage(file="./Images/YTLogo.png")
 image = image.subsample(3)
 label = tk.Label(frame, text="Insert the video link:", font=("Arial", 30), fg="black", width=40, height=2)
-LinkInput = tk.Entry(frame, font=("Arial", 24), width=30, insertbackground='black', bg='white', bd=3, relief="solid", fg='black')
+LinkInput = tk.Entry(frame, font=("Arial", 24), width=30, insertbackground='black', bg='white', bd=3, relief="solid", fg="black")
 DlButton = tk.Button(frame, text="Download", command=download_thread, width=15, font=("Arial", 25))
 DlCompleted = tk.Label(frame, text="Completed!", font=("Arial", 30), fg="black", width=40, height=2)
 
@@ -60,7 +69,7 @@ labelDl.pack(side="left")
 
 label.pack()
 DlButton.pack(side="bottom", pady=30)
-LinkInput.pack(side="bottom")
+LinkInput.pack(side="bottom", pady=30)
 
 frame.configure(bg="white")
 label.configure(bg="white")
