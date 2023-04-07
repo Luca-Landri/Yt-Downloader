@@ -28,15 +28,18 @@ def download(url: str):
                 print(f"An error occurred while downloading the video: {e}")
             finally:
                 DlButton.config(state='normal')
+                LinkInput.delete(0, tk.END)
         else:
             print("No path selected.")
             DlButton.config(state='normal')
+            LinkInput.delete(0, tk.END)
+            LinkInput.config(highlightbackground="red")
     else:
         print("No URL inserted.")
         DlButton.config(state='normal')
         LinkInput.delete(0, tk.END)
-        # make the border red
-        LinkInput.config(bg='red')
+        LinkInput.config(highlightbackground="red")
+
 
 
 def download_thread():
@@ -58,18 +61,18 @@ image = image.subsample(3)
 label = tk.Label(frame, text="Insert the video link:", font=("Arial", 30), fg="black", width=40, height=2)
 LinkInput = tk.Entry(frame, font=("Arial", 24), width=30, insertbackground='black', bg='white', bd=3, relief="solid", fg="black")
 DlButton = tk.Button(frame, text="Download", command=download_thread, width=15, font=("Arial", 25))
-DlCompleted = tk.Label(frame, text="Completed!", font=("Arial", 30), fg="black", width=40, height=2)
+DlCompleted = tk.Label(frame, text="Completed!", font=("Arial", 20), fg="black", width=40, height=2)
 
 
 labelimg = tk.Label(titleFrame, image=image)
-labelDl = tk.Label(titleFrame, text="DL", font=("Verdana", 60), fg="black", width=2, height=2)
+labelDl = tk.Label(titleFrame, text="DL", font=("Verdana", 50), fg="black", width=2, height=2)
 
 labelimg.pack(side="left")
 labelDl.pack(side="left")
 
 label.pack()
-DlButton.pack(side="bottom", pady=30)
-LinkInput.pack(side="bottom", pady=30)
+DlButton.pack(side="bottom", pady=15)
+LinkInput.pack(side="bottom", pady=15)
 
 frame.configure(bg="white")
 label.configure(bg="white")
