@@ -34,11 +34,16 @@ def download(url: str):
             DlButton.config(state='normal')
             LinkInput.delete(0, tk.END)
             LinkInput.config(highlightbackground="red")
+            DlCompleted.config(text="No path selected.", fg="red")
+            DlCompleted.pack()
+
     else:
         print("No URL inserted.")
         DlButton.config(state='normal')
         LinkInput.delete(0, tk.END)
         LinkInput.config(highlightbackground="red")
+        DlCompleted.config(text="Insert the link first.", fg="red")
+        DlCompleted.pack()
 
 
 
