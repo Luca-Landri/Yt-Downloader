@@ -5,6 +5,8 @@ from PIL import Image, ImageTk
 import tkinter as tk
 import base64
 import io
+import os
+import platform
 
 
 root = tk.Tk()
@@ -24,8 +26,13 @@ logo_resized = image.resize((image.width // 3, image.height // 3))
 logobello = ImageTk.PhotoImage(logo_resized)
 logoicona = ImageTk.PhotoImage(logo)
 
+desktop = os.getcwd()
+
+def choose_path():
+    desktop = filedialog.askdirectory()
+
 def download(url: str):
-    path = filedialog.askdirectory()
+    path = desktop
     ydl_opts = {
         'outtmpl': f'{path}/%(title)s',
         'noplaylist': True,
@@ -72,7 +79,7 @@ def download_audio_thread():
 
 
 def download_audio(url: str):
-    path = filedialog.askdirectory()
+    path = desktop
     yt_dl_onlyaudio = {
         'outtmpl': f'{path}/%(title)s.%(ext)s',
         'noplaylist': True,
@@ -124,6 +131,7 @@ titleFrame.pack(side="top")
 buttonFrame.pack(side="bottom")
 
 label = tk.Label(frame, text="Insert the video link:", font=("Arial", 30), fg="black", width=40, height=2)
+ChoosePath = tk.Button(frame, text="Choose Path", command=choose_path, width=8, font=("Arial", 20))
 LinkInput = tk.Entry(frame, font=("Arial", 24), width=30, insertbackground='black', bg='white', bd=3, relief="solid", fg="black")
 DlButton = tk.Button(buttonFrame, text="Download Video", command=download_thread, width=15, font=("Arial", 25))
 DlButtonAudio = tk.Button(buttonFrame, text="Download Audio", command=download_audio_thread, width=15, font=("Arial", 25))
@@ -137,6 +145,7 @@ labelimg.pack(side="left")
 labelDl.pack(side="left")
 
 label.pack()
+ChoosePath.pack()
 DlButton.pack(side="left", pady=15)
 DlButtonAudio.pack(side="bottom", pady=15, padx=15)
 LinkInput.pack(side="bottom", pady=15)
